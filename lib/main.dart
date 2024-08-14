@@ -29,26 +29,24 @@ class _TopTenAppState extends State<TopTenApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.star,
-                size: 200,
-              ),
-              Text(
-                'Cars',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                'V 0.1.1',
-                style: TextStyle(fontSize: 20),
-              )
-            ],
-          ),
+    return const Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.star,
+              size: 200,
+            ),
+            Text(
+              'Cars',
+              style: TextStyle(fontSize: 30),
+            ),
+            Text(
+              'V 0.1.1',
+              style: TextStyle(fontSize: 20),
+            )
+          ],
         ),
       ),
     );

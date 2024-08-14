@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:share_link/share_link.dart';
 
@@ -99,59 +102,108 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
-        title: const Text('Top 10 fastest Cars'),
+        backgroundColor: Colors.red,
+        title: const Text(
+          'Top 10 fastest Cars',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         actions: [
-          PopupMenuButton(onSelected: (values) {
-            switch (values) {
-              case 'Share the app':
-                setState(() {
-                  ShareLink.shareUri(
-                    Uri.parse('https://top_10_cars.com'),
-                    subject: 'Share Top 10 fastest cars to your friends.',
+          PopupMenuButton(
+              color: Colors.red,
+              iconColor: Colors.white,
+              onSelected: (values) {
+                switch (values) {
+                  case 'Share the app':
+                    setState(() {
+                      ShareLink.shareUri(
+                        Uri.parse('https://top_10_cars.com'),
+                        subject: 'Share Top 10 fastest cars to your friends.',
+                      );
+                    });
+                    break;
+                  case 'About':
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AboutScreen(),
+                        ));
+                    break;
+                  case 'Exit':
+                    Navigator.pop(context);
+                    exit(0);
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return {'Share the app', 'About', 'Exit'}.map((String choice) {
+                  return PopupMenuItem(
+                    value: choice,
+                    child: ListTile(
+                      iconColor: Colors.white,
+                      leading: choice.contains('Share')
+                          ? const Icon(Icons.share)
+                          : choice == 'About'
+                              ? const Icon(Icons.info)
+                              : const Icon(Icons.directions_walk_outlined),
+                      title: Text(
+                        choice,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
                   );
-                });
-                break;
-              case 'About':
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AboutScreen(),
-                    ));
-                break;
-              case 'Exit':
-                Navigator.pop(context);
-            }
-          }, itemBuilder: (BuildContext context) {
-            return {'Share the app', 'About', 'Exit'}.map((String choice) {
-              return PopupMenuItem(value: choice, child: Text(choice));
-            }).toList();
-          })
+                }).toList();
+              })
         ],
       ),
       body: Stack(children: [
-        Image.asset('assets/images/ver_mclaren.jpg'),
+        Positioned.fill(
+            child: Image.asset(
+          'assets/images/ver_mclaren.jpg',
+          fit: BoxFit.cover,
+        )),
+        Positioned.fill(
+            child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+          child: Container(
+            color: Colors.black.withOpacity(0),
+          ),
+        )),
         Expanded(
           child: ListView.separated(
+            physics: const BouncingScrollPhysics(),
             itemCount: buttonList.length,
             itemBuilder: (context, index) {
               return ListTile(
                 leading: SizedBox(
                     width: 50,
                     height: 50,
-                    child: Image.asset(
-                      buttonList[index]['icon'],
-                      height: 50,
-                      width: 50,
+                    child: ClipOval(
+                      child: Image.asset(
+                        buttonList[index]['icon'],
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
                     )),
-                shape: const OutlineInputBorder(),
                 title: Container(
                     margin: const EdgeInsets.only(left: 5),
-                    child: Text(buttonList[index]['title'])),
-                hoverColor: Colors.amber,
-                tileColor: Colors.yellow,
+                    child: Text(
+                      buttonList[index]['title'],
+                      style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    )),
+                hoverColor: Colors.redAccent,
+                tileColor: Colors.red,
+                subtitle: Text(
+                  '${buttonList[index]['description'].toString().substring(0, 20)}...',
+                  style: const TextStyle(color: Colors.white),
+                ),
                 horizontalTitleGap: 2,
-                trailing: const Icon(Icons.arrow_forward_ios),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                ),
                 onTap: () {
                   Navigator.push(
                     context,

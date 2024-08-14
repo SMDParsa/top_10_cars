@@ -25,20 +25,51 @@ class DetailsScreen extends StatelessWidget {
                 color: Colors.yellow,
               ),
               Image.asset(icon),
-              Card(
-                  color: Colors.white60,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(title,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                  ))
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                        margin: const EdgeInsets.only(top: 30, left: 10),
+                        child: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white70,
+                        )),
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.white70,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    margin: const EdgeInsets.only(top: 30),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
-          Text(description),
+          Container(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                description,
+                style: const TextStyle(fontSize: 18),
+              )),
           ElevatedButton(
             onPressed: () {
-              _launchURL('https://www.google.com/search?q=' + title);
+              _launchURL('https://www.google.com/search?q=$title');
             },
-            child: Text('More Details'),
+            child: const Text(
+              'More Details',
+              style: TextStyle(fontSize: 20),
+            ),
           )
         ],
       ),
