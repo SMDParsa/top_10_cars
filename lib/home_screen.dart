@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:share_link/share_link.dart';
 
+import 'about_screen.dart';
 import 'details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -93,46 +95,29 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
     }
   ];
 
-  List listItems = [
-    'What is flutter',
-    'How to create a flutter app',
-    'Who invented flutter',
-    'Is flutter better than other languages?',
-    'Can we create beautiful animations with flutter?',
-    'What is flutter',
-    'How to create a flutter app',
-    'Who invented flutter',
-    'Is flutter better than other languages?',
-    'Can we create beautiful animations with flutter?',
-    'What is flutter',
-    'How to create a flutter app',
-    'Who invented flutter',
-    'Is flutter better than other languages?',
-    'Can we create beautiful animations with flutter?',
-    'What is flutter',
-    'How to create a flutter app',
-    'Who invented flutter',
-    'Is flutter better than other languages?',
-    'Can we create beautiful animations with flutter?',
-    'What is flutter',
-    'How to create a flutter app',
-    'Who invented flutter',
-    'Is flutter better than other languages?',
-    'Can we create beautiful animations with flutter?'
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
-        title: Text('Foo App'),
+        title: const Text('Top 10 fastest Cars'),
         actions: [
           PopupMenuButton(onSelected: (values) {
             switch (values) {
               case 'Share the app':
+                setState(() {
+                  ShareLink.shareUri(
+                    Uri.parse('https://top_10_cars.com'),
+                    subject: 'Share Top 10 fastest cars to your friends.',
+                  );
+                });
                 break;
               case 'About':
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AboutScreen(),
+                    ));
                 break;
               case 'Exit':
                 Navigator.pop(context);
@@ -144,48 +129,51 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
           })
         ],
       ),
-      body: Expanded(
-        child: ListView.separated(
-          itemCount: buttonList.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: Container(
-                  width: 50,
-                  height: 50,
-                  child: Image.asset(
-                    buttonList[index]['icon'],
-                    height: 50,
+      body: Stack(children: [
+        Image.asset('assets/images/ver_mclaren.jpg'),
+        Expanded(
+          child: ListView.separated(
+            itemCount: buttonList.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: SizedBox(
                     width: 50,
-                  )),
-              shape: OutlineInputBorder(),
-              title: Container(
-                  margin: EdgeInsets.only(left: 5),
-                  child: Text(buttonList[index]['title'])),
-              hoverColor: Colors.amber,
-              tileColor: Colors.yellow,
-              horizontalTitleGap: 2,
-              trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DetailsScreen(
-                            title: buttonList[index]['title'],
-                            description: buttonList[index]['description'],
-                            icon: buttonList[index]['icon'],
-                          )),
-                );
-              },
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(
-              height: 4,
-              color: Colors.transparent,
-            );
-          },
+                    height: 50,
+                    child: Image.asset(
+                      buttonList[index]['icon'],
+                      height: 50,
+                      width: 50,
+                    )),
+                shape: const OutlineInputBorder(),
+                title: Container(
+                    margin: const EdgeInsets.only(left: 5),
+                    child: Text(buttonList[index]['title'])),
+                hoverColor: Colors.amber,
+                tileColor: Colors.yellow,
+                horizontalTitleGap: 2,
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailsScreen(
+                              title: buttonList[index]['title'],
+                              description: buttonList[index]['description'],
+                              icon: buttonList[index]['icon'],
+                            )),
+                  );
+                },
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider(
+                height: 4,
+                color: Colors.transparent,
+              );
+            },
+          ),
         ),
-      ),
+      ]),
     );
   }
 }
