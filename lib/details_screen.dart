@@ -99,7 +99,7 @@ class DetailsScreen extends StatelessWidget {
                             case 2:
                               dialogTitle = 'Engine Power';
                               dialogContent =
-                                  'it\'s ${carItem.carEngine} has ${carItem.carEnginePower}';
+                                  'it\'s ${carItem.carEngine} Engine has ${carItem.carEnginePower}';
                               carInfo = carItem.carEnginePower;
                               icon = Icons.bolt;
                           }
