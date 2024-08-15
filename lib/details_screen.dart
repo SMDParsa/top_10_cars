@@ -5,16 +5,9 @@ import 'package:top_10_cars/home_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsScreen extends StatelessWidget {
-  /*final String title;
-  final String icon;
-  final String description;*/
   final Car carItem;
 
-  const DetailsScreen({super.key, required this.carItem
-      /*required this.title,
-      required this.icon,
-      required this.description*/
-      });
+  const DetailsScreen({super.key, required this.carItem});
 
   @override
   Widget build(BuildContext context) {
