@@ -1,5 +1,6 @@
-import 'home_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'home_screen.dart';
 
 void main() {
   runApp(
@@ -29,20 +30,20 @@ class _TopTenAppState extends State<TopTenApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.star,
-              size: 200,
-            ),
-            Text(
+            SizedBox(
+                width: 100,
+                height: 100,
+                child: Image.asset('assets/images/ic_launcher.png')),
+            const Text(
               'Cars',
               style: TextStyle(fontSize: 30),
             ),
-            Text(
+            const Text(
               'V 0.1.1',
               style: TextStyle(fontSize: 20),
             )
