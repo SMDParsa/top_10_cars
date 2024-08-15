@@ -68,11 +68,57 @@ class DetailsScreen extends StatelessWidget {
               ),
               SingleChildScrollView(
                 child: Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Text(
-                    carItem.carDescription,
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GridView.builder(
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          var carInfo;
+                          var icon;
+
+                          switch (index) {
+                            case 0:
+                              icon = Icons.speed;
+                              carInfo = carItem.carSpeed;
+                              break;
+                            case 1:
+                              icon = Icons.settings;
+                              carInfo = carItem.carEngine;
+                              break;
+                            case 2:
+                              carInfo = carItem.carEnginePower;
+                              icon = Icons.bolt;
+                          }
+                          return Column(
+                            children: [
+                              Icon(
+                                icon,
+                                color: Colors.white,
+                                size: 40,
+                              ),
+                              Text(
+                                '$carInfo',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          );
+                        },
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3),
+                      ),
+                      Text(
+                        carItem.carDescription,
+                        textAlign: TextAlign.justify,
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ),
