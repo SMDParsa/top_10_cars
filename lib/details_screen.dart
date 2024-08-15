@@ -1,19 +1,20 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:top_10_cars/home_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final String title;
+  /*final String title;
   final String icon;
-  final String description;
+  final String description;*/
+  final Car carItem;
 
-  const DetailsScreen(
-      {super.key,
-      required this.title,
+  const DetailsScreen({super.key, required this.carItem
+      /*required this.title,
       required this.icon,
-      required this.description});
+      required this.description*/
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class DetailsScreen extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.asset(icon),
+              Image.asset(carItem.carImage),
               Row(
                 children: [
                   GestureDetector(
@@ -44,7 +45,7 @@ class DetailsScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        title,
+                        carItem.carName,
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -66,7 +67,7 @@ class DetailsScreen extends StatelessWidget {
                     colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(0.7), BlendMode.srcATop),
                     child: Image.asset(
-                      icon,
+                      carItem.carImage,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -76,8 +77,8 @@ class DetailsScreen extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   child: Text(
+                    carItem.carDescription,
                     textAlign: TextAlign.justify,
-                    description,
                     style: const TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
@@ -87,7 +88,8 @@ class DetailsScreen extends StatelessWidget {
                 right: 30,
                 child: ElevatedButton(
                   onPressed: () {
-                    _launchURL('https://www.google.com/search?q=$title');
+                    _launchURL(
+                        'https://www.google.com/search?q=${carItem.carName}');
                   },
                   child: const Text(
                     'More Details',

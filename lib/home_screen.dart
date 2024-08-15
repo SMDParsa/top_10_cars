@@ -15,10 +15,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List carList = [
+    Car('Koenigsegg Jesko Absolut', '310MPH', 'Twin-Turbocharged V8',
+        'assets/images/hor_koenigsegg.jpg', '???', '''
+Koenigsegg is very good at making bonkers hypercars, and the Jesko Absolut is set to be the most insane offering yet. It uses a twin-turbocharged V8 engine which pushes 1,600hp when running on race fuel, and it’ll do 0-60mph in 2.5 seconds.
+The Swedish brand also says that this car will do over 310mph, however this does come with a caveat. You see the Jesko Absolut has never actually hit this top speed in real life, these predictions are based on computer simulations, so time will tell if it can actually live up to these wild expectations.'''),
+  ];
   List<Map<String, dynamic>> buttonList = [
     {
       'title': 'Koenigsegg Jesko Absolut',
-      'speed':'310MPH',
+      'speed': '310MPH',
       'icon': 'assets/images/hor_koenigsegg.jpg',
       'image': '',
       'description': '''
@@ -27,7 +33,7 @@ The Swedish brand also says that this car will do over 310mph, however this does
     },
     {
       'title': 'Bugatti Chiron Supersport 300+',
-      'speed':'304MPH',
+      'speed': '304MPH',
       'icon': 'assets/images/hor_bugatti.jpg',
       'image': '',
       'description': '''
@@ -36,7 +42,7 @@ Specifically, it did 304mph when the French firm unleashed it at Volkswagen’s 
     },
     {
       'title': 'SSC Tuatara',
-      'speed':'331MPH',
+      'speed': '331MPH',
       'icon': 'assets/images/hor_ssc_tuatara.jpg',
       'image': '',
       'description': '''
@@ -45,7 +51,7 @@ You see, SSC claimed the Tuatara actually managed 331mph in October 2020 to make
     },
     {
       'title': 'Hennessey Venom F5',
-      'speed':'272MPH',
+      'speed': '272MPH',
       'icon': 'assets/images/hor_hennessey.jpg',
       'image': '',
       'description': '''
@@ -54,7 +60,7 @@ That’s enough to launch it from 0-60mph in 2.6 seconds, and it’ll go onto a 
     },
     {
       'title': 'Rimac Nevera',
-      'speed':'256MPH',
+      'speed': '256MPH',
       'icon': 'assets/images/hor_rimac_nevera.jpg',
       'image': '',
       'description': '''
@@ -63,7 +69,7 @@ This ballistic EV hypercar has four electric motors, producing a whopping 1,914h
     },
     {
       'title': 'McLaren Speedtail',
-      'speed':'250MPH',
+      'speed': '250MPH',
       'icon': 'assets/images/hor_mclaren.jpg',
       'image': '',
       'description': '''
@@ -72,7 +78,7 @@ That’s faster than its last three-seat car — the legendary McLaren F1. Its s
     },
     {
       'title': 'Koenigsegg Regera',
-      'speed':'250MPH',
+      'speed': '250MPH',
       'icon': 'assets/images/hor_koenigsegg_regera.jpg',
       'image': '',
       'description': '''
@@ -81,7 +87,7 @@ Unlike any other car on this list, the Regera can go from 0-250mph using just on
     },
     {
       'title': 'Aston Martin Valkyrie',
-      'speed':'???MPH',
+      'speed': '???MPH',
       'icon': 'assets/images/hor_aston_martin.jpg',
       'image': '',
       'description': '''
@@ -90,7 +96,7 @@ Mounted behind the driver is a 6.5-litre hybrid V12 with 1,160hp, capable of pus
     },
     {
       'title': 'Pagani Huayra',
-      'speed':'238MPH',
+      'speed': '238MPH',
       'icon': 'assets/images/hor_pagani.jpg',
       'image': '',
       'description': '''
@@ -99,7 +105,7 @@ The Huayra is made mostly of carbon fibre to keep the weight down, as well as to
     },
     {
       'title': 'Lamborghini Revuelto',
-      'speed':'217MPH',
+      'speed': '217MPH',
       'icon': 'assets/images/hor_lambor.jpg',
       'image': '',
       'description': '''
@@ -180,7 +186,7 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
         Expanded(
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
-            itemCount: buttonList.length,
+            itemCount: carList.length,
             itemBuilder: (context, index) {
               return ListTile(
                 leading: SizedBox(
@@ -188,7 +194,7 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
                     height: 50,
                     child: ClipOval(
                       child: Image.asset(
-                        buttonList[index]['icon'],
+                        carList[index].carImage,
                         width: 50,
                         height: 50,
                         fit: BoxFit.cover,
@@ -197,7 +203,7 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
                 title: Container(
                     margin: const EdgeInsets.only(left: 5),
                     child: Text(
-                      buttonList[index]['title'],
+                      carList[index].carName,
                       style: const TextStyle(
                           fontSize: 18,
                           color: Colors.white,
@@ -206,7 +212,7 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
                 hoverColor: Colors.redAccent,
                 tileColor: Colors.red,
                 subtitle: Text(
-                  '${buttonList[index]['description'].toString().substring(0, 20)}...',
+                  '${carList[index].carDescription.toString().substring(0, 20)}...',
                   style: const TextStyle(color: Colors.white),
                 ),
                 horizontalTitleGap: 2,
@@ -214,8 +220,11 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
                   width: 70,
                   child: Row(
                     children: [
-                      Text(buttonList[index]['speed'],style: TextStyle(color: Colors.white),),
-                       Icon(
+                      Text(
+                        carList[index].carSpeed,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      const Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.white,
                       ),
@@ -226,11 +235,16 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
                   Navigator.push(
                     context,
                     MaterialPageRoute(
+                        builder: (context) =>
+                            DetailsScreen(carItem: carList[index])),
+
+                    //Map Passed!
+                    /*MaterialPageRoute(
                         builder: (context) => DetailsScreen(
                               title: buttonList[index]['title'],
                               description: buttonList[index]['description'],
                               icon: buttonList[index]['icon'],
-                            )),
+                            )),*/
                   );
                 },
               );
@@ -246,4 +260,16 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
       ]),
     );
   }
+}
+
+class Car {
+  var carName;
+  var carSpeed;
+  var carEngine;
+  var carImage;
+  var carEnginePower;
+  var carDescription;
+
+  Car(this.carName, this.carSpeed, this.carEngine, this.carImage,
+      this.carEnginePower, this.carDescription);
 }
