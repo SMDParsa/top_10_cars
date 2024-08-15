@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -17,7 +20,17 @@ class AboutScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Image.asset('assets/images/ver_mclaren.jpg'),
+            Image.asset(
+              'assets/images/ver_mclaren.jpg',
+              fit: BoxFit.cover,
+            ),
+            Positioned.fill(
+                child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+              child: Container(
+                color: Colors.white.withOpacity(0),
+              ),
+            )),
             Container(
               padding: const EdgeInsets.all(40),
               child: Column(
@@ -71,14 +84,43 @@ class AboutScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(onPressed: () {
-
-                    }, icon: const Icon(Icons.call,color: Colors.white,))
+                    IconButton(
+                        onPressed: () {
+                          _urlLauncher('tel:+93785287051');
+                        },
+                        icon: const Icon(
+                          Icons.call,
+                          color: Colors.white,
+                        )),
+                    IconButton(
+                        onPressed: () {
+                          _urlLauncher('https://t.me/smdparsa');
+                        },
+                        icon: const Icon(
+                          Icons.telegram,
+                          color: Colors.white,
+                        )),
+                    IconButton(
+                        onPressed: () {
+                          _urlLauncher(
+                              'mailto:ap.smdsoft@gmail.com?subject=Top 10 fastest cars&body=This is a test from top 10 fastest cars in the world app created with flutter by AbdulSamad!');
+                        },
+                        icon: const Icon(
+                          Icons.email,
+                          color: Colors.white,
+                        )),
                   ],
                 )),
           ],
         ),
       ),
     );
+  }
+}
+
+_urlLauncher(String goUrl) async {
+  final Uri url = Uri.parse(goUrl);
+  if (!await launchUrl(url)) {
+    throw Exception('Could not launch $url');
   }
 }
