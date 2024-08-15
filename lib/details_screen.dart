@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -19,11 +22,6 @@ class DetailsScreen extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Container(
-                height: 150,
-                width: double.infinity,
-                color: Colors.yellow,
-              ),
               Image.asset(icon),
               Row(
                 children: [
@@ -35,7 +33,7 @@ class DetailsScreen extends StatelessWidget {
                         margin: const EdgeInsets.only(top: 30, left: 10),
                         child: const Icon(
                           Icons.arrow_back_ios,
-                          color: Colors.white70,
+                          color: Colors.white,
                         )),
                   ),
                   Container(
@@ -56,21 +54,49 @@ class DetailsScreen extends StatelessWidget {
               )
             ],
           ),
-          Container(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                description,
-                style: const TextStyle(fontSize: 18),
-              )),
-          ElevatedButton(
-            onPressed: () {
-              _launchURL('https://www.google.com/search?q=$title');
-            },
-            child: const Text(
-              'More Details',
-              style: TextStyle(fontSize: 20),
-            ),
-          )
+          const Divider(
+            color: Colors.white,
+          ),
+          Expanded(
+            child: Stack(children: [
+              Positioned.fill(
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 5),
+                  child: ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.7), BlendMode.srcATop),
+                    child: Image.asset(
+                      icon,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Text(
+                    textAlign: TextAlign.justify,
+                    description,
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 20,
+                right: 30,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _launchURL('https://www.google.com/search?q=$title');
+                  },
+                  child: const Text(
+                    'More Details',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              )
+            ]),
+          ),
         ],
       ),
     );
