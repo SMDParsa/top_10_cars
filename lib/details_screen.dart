@@ -76,37 +76,68 @@ class DetailsScreen extends StatelessWidget {
                       GridView.builder(
                         itemCount: 3,
                         itemBuilder: (context, index) {
+                          var dialogTitle;
+                          var dialogContent;
                           var carInfo;
                           var icon;
 
                           switch (index) {
                             case 0:
+                              dialogTitle = 'Top speed';
+                              dialogContent =
+                                  '${carItem.carName} has top speed of ${carItem.carSpeed}';
                               icon = Icons.speed;
                               carInfo = carItem.carSpeed;
                               break;
                             case 1:
+                              dialogTitle = 'Engine Type';
+                              dialogContent =
+                                  '${carItem.carName} has a ${carItem.carEngine} Engine';
                               icon = Icons.settings;
                               carInfo = carItem.carEngine;
                               break;
                             case 2:
+                              dialogTitle = 'Engine Power';
+                              dialogContent =
+                                  'it\'s ${carItem.carEngine} has ${carItem.carEnginePower}';
                               carInfo = carItem.carEnginePower;
                               icon = Icons.bolt;
                           }
-                          return Column(
-                            children: [
-                              Icon(
-                                icon,
-                                color: Colors.white,
-                                size: 40,
-                              ),
-                              Text(
-                                textAlign: TextAlign.center,
-                                '$carInfo',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
+                          return GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      icon: Icon(icon),
+                                      title: Text(dialogTitle),
+                                      content: Text(dialogContent),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('OK'))
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: Column(
+                              children: [
+                                Icon(
+                                  icon,
+                                  color: Colors.white,
+                                  size: 40,
+                                ),
+                                Text(
+                                  textAlign: TextAlign.center,
+                                  '$carInfo',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
                           );
                         },
                         shrinkWrap: true,
