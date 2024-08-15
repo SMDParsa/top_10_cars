@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> buttonList = [
     {
       'title': 'Koenigsegg Jesko Absolut',
+      'speed':'310MPH',
       'icon': 'assets/images/hor_koenigsegg.jpg',
       'image': '',
       'description': '''
@@ -26,6 +27,7 @@ The Swedish brand also says that this car will do over 310mph, however this does
     },
     {
       'title': 'Bugatti Chiron Supersport 300+',
+      'speed':'304MPH',
       'icon': 'assets/images/hor_bugatti.jpg',
       'image': '',
       'description': '''
@@ -34,6 +36,7 @@ Specifically, it did 304mph when the French firm unleashed it at Volkswagen’s 
     },
     {
       'title': 'SSC Tuatara',
+      'speed':'331MPH',
       'icon': 'assets/images/hor_ssc_tuatara.jpg',
       'image': '',
       'description': '''
@@ -42,6 +45,7 @@ You see, SSC claimed the Tuatara actually managed 331mph in October 2020 to make
     },
     {
       'title': 'Hennessey Venom F5',
+      'speed':'272MPH',
       'icon': 'assets/images/hor_hennessey.jpg',
       'image': '',
       'description': '''
@@ -50,6 +54,7 @@ That’s enough to launch it from 0-60mph in 2.6 seconds, and it’ll go onto a 
     },
     {
       'title': 'Rimac Nevera',
+      'speed':'256MPH',
       'icon': 'assets/images/hor_rimac_nevera.jpg',
       'image': '',
       'description': '''
@@ -58,6 +63,7 @@ This ballistic EV hypercar has four electric motors, producing a whopping 1,914h
     },
     {
       'title': 'McLaren Speedtail',
+      'speed':'250MPH',
       'icon': 'assets/images/hor_mclaren.jpg',
       'image': '',
       'description': '''
@@ -66,6 +72,7 @@ That’s faster than its last three-seat car — the legendary McLaren F1. Its s
     },
     {
       'title': 'Koenigsegg Regera',
+      'speed':'250MPH',
       'icon': 'assets/images/hor_koenigsegg_regera.jpg',
       'image': '',
       'description': '''
@@ -74,6 +81,7 @@ Unlike any other car on this list, the Regera can go from 0-250mph using just on
     },
     {
       'title': 'Aston Martin Valkyrie',
+      'speed':'???MPH',
       'icon': 'assets/images/hor_aston_martin.jpg',
       'image': '',
       'description': '''
@@ -82,6 +90,7 @@ Mounted behind the driver is a 6.5-litre hybrid V12 with 1,160hp, capable of pus
     },
     {
       'title': 'Pagani Huayra',
+      'speed':'238MPH',
       'icon': 'assets/images/hor_pagani.jpg',
       'image': '',
       'description': '''
@@ -90,6 +99,7 @@ The Huayra is made mostly of carbon fibre to keep the weight down, as well as to
     },
     {
       'title': 'Lamborghini Revuelto',
+      'speed':'217MPH',
       'icon': 'assets/images/hor_lambor.jpg',
       'image': '',
       'description': '''
@@ -200,9 +210,17 @@ Specifically, you get a combined 1,015hp, more than any road-going Lamborghini e
                   style: const TextStyle(color: Colors.white),
                 ),
                 horizontalTitleGap: 2,
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
+                trailing: SizedBox(
+                  width: 70,
+                  child: Row(
+                    children: [
+                      Text(buttonList[index]['speed'],style: TextStyle(color: Colors.white),),
+                       Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
                 ),
                 onTap: () {
                   Navigator.push(
