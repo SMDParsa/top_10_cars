@@ -100,6 +100,7 @@ class DetailsScreen extends StatelessWidget {
                                 size: 40,
                               ),
                               Text(
+                                textAlign: TextAlign.center,
                                 '$carInfo',
                                 style: TextStyle(
                                     color: Colors.white,

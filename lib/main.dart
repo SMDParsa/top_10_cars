@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'home_screen.dart';
 
@@ -15,10 +16,20 @@ class TopTenApp extends StatefulWidget {
 }
 
 class _TopTenAppState extends State<TopTenApp> {
+  PackageInfo _packageInfo = PackageInfo(
+    appName: 'Unknown',
+    packageName: 'Unknown',
+    version: 'Unknown',
+    buildNumber: 'Unknown',
+    buildSignature: 'Unknown',
+    installerStore: 'Unknown',
+  );
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _initPackageInfo();
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
           context,
@@ -26,6 +37,20 @@ class _TopTenAppState extends State<TopTenApp> {
             builder: (context) => HomeScreen(),
           ));
     });
+  }
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+  }
+
+  Widget _infoTile(String title, String subtitle) {
+    return ListTile(
+      title: Text(title),
+      subtitle: Text(subtitle.isEmpty ? 'Not set' : subtitle),
+    );
   }
 
   @override
@@ -36,15 +61,15 @@ class _TopTenAppState extends State<TopTenApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-                width: 100,
-                height: 100,
+                width: 150,
+                height: 150,
                 child: Image.asset('assets/images/ic_launcher.png')),
-            const Text(
-              'Cars',
+            Text(
+              _packageInfo.appName,
               style: TextStyle(fontSize: 30),
             ),
-            const Text(
-              'V 0.1.1',
+            Text(
+              'V ${_packageInfo.version} Build ${_packageInfo.buildNumber}',
               style: TextStyle(fontSize: 20),
             )
           ],
